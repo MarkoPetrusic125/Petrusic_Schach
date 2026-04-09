@@ -1,2 +1,15 @@
-﻿// See https://aka.ms/new-console-template for more information
-Console.WriteLine("Hello, World!");
+﻿namespace program;
+using System;
+using klasse;
+public class Program
+{
+
+    public static int Main()
+    {
+        Chess game = new Chess();
+
+        Console.WriteLine(game);
+
+        return 0;
+    }
+}
