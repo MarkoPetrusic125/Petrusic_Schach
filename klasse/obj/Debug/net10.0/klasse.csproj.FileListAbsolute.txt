@@ -1,0 +1,12 @@
+/config/workspace/Petrusic_Schach/klasse/bin/Debug/net10.0/klasse.deps.json
+/config/workspace/Petrusic_Schach/klasse/bin/Debug/net10.0/klasse.dll
+/config/workspace/Petrusic_Schach/klasse/bin/Debug/net10.0/klasse.pdb
+/config/workspace/Petrusic_Schach/klasse/obj/Debug/net10.0/klasse.GeneratedMSBuildEditorConfig.editorconfig
+/config/workspace/Petrusic_Schach/klasse/obj/Debug/net10.0/klasse.AssemblyInfoInputs.cache
+/config/workspace/Petrusic_Schach/klasse/obj/Debug/net10.0/klasse.AssemblyInfo.cs
+/config/workspace/Petrusic_Schach/klasse/obj/Debug/net10.0/klasse.csproj.CoreCompileInputs.cache
+/config/workspace/Petrusic_Schach/klasse/obj/Debug/net10.0/klasse.sourcelink.json
+/config/workspace/Petrusic_Schach/klasse/obj/Debug/net10.0/klasse.dll
+/config/workspace/Petrusic_Schach/klasse/obj/Debug/net10.0/refint/klasse.dll
+/config/workspace/Petrusic_Schach/klasse/obj/Debug/net10.0/klasse.pdb
+/config/workspace/Petrusic_Schach/klasse/obj/Debug/net10.0/ref/klasse.dll
