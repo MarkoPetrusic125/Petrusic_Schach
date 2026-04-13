@@ -1,15 +1,12 @@
-﻿namespace program;
-using System;
+﻿using System;
 using klasse;
-public class Program
+namespace program;
+
+class Program
 {
-
-    public static int Main()
+    static void Main()
     {
-        Chess game = new Chess();
-
-        Console.WriteLine(game);
-
-        return 0;
+        Board game = new Board();
+        Console.WriteLine(game.ToString());
     }
 }
