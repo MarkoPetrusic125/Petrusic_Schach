@@ -2,8 +2,19 @@
 using Xunit;
 using klasse;
 
-public class Tests
+
+public class BoardTests
 {
+    [Fact]
+    public void Setup_kingIstPlaced()
+    {
+        Board board = new Board();
+
+        string output = board.ToString();
+
+        Assert.Contains("K", output);
+    }
+
     [Fact]
     public void GetColor_resturns_white()
     {
@@ -24,4 +35,5 @@ public class Tests
         Assert.Equal("K", result);
     }
 }
+
 
