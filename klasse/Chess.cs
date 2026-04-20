@@ -22,8 +22,8 @@ public class Board
     public void SetupBoard()
     {
         board[4, 0] = new Figures("King", white.GetColor());
-        board[0, 0] = new Figures("Rook", white.GetColor());
-        board[7, 0] = new Figures("Rook", white.GetColor());
+        board[0, 0] = new Figures("Rook1", white.GetColor());
+        board[7, 0] = new Figures("Rook2", white.GetColor());
 
     }
 
@@ -76,41 +76,48 @@ public class Board
 
 
     public void MoveFigure(string name, int toX, int toY)
-{
-    int fromX = 0;
-    int fromY = 0;
-    bool found = false;
-
-    for (int y = 0; y < 8; y++)
     {
-        for (int x = 0; x < 8; x++)
+        int fromX = 0;
+        int fromY = 0;
+        bool found = false;
+
+        for (int y = 0; y < 8; y++)
         {
-            if (board[x, y] != null)
+            for (int x = 0; x < 8; x++)
             {
-                if (board[x, y].GetName() == name)
+                if (board[x, y] != null)
                 {
-                    fromX = x;
-                    fromY = y;
-                    found = true;
+                    if (board[x, y].GetName() == name)
+                    {
+                        fromX = x;
+                        fromY = y;
+                        found = true;
+                    }
                 }
             }
         }
+
+        if (found == false)
+            throw new ArgumentException("Figur nicht gefunden");
+
+
+        if (name == "King")
+        {
+            int dx = Math.Abs(toX - fromX);
+            int dy = Math.Abs(toY - fromY);
+
+            if (dx > 1 || dy > 1)
+                throw new ArgumentException("King darf nur 1 Feld bewegen");
+        }
+
+        if (name == "Rook1" || name == "Rook2")
+        {
+            if (fromX != toX && fromY != toY)
+                throw new ArgumentException("Rook darf nur gerade ziehen");
+        }
+
+
+        board[toX, toY] = board[fromX, fromY];
+        board[fromX, fromY] = null;
     }
-
-    if (found == false)
-        throw new ArgumentException("Figur nicht gefunden");
-
- 
-    if (name == "King")
-    {
-        int dx = Math.Abs(toX - fromX);
-        int dy = Math.Abs(toY - fromY);
-
-        if (dx > 1 || dy > 1)
-            throw new ArgumentException("King darf nur 1 Feld bewegen");
-    }
-
-    board[toX, toY] = board[fromX, fromY];
-    board[fromX, fromY] = null;
-}
 }

@@ -34,6 +34,43 @@ public class BoardTests
 
         Assert.Equal("K", result);
     }
-}
 
+    [Fact]
+    public void MoveFigure_MovesKingCorrectly()
+    {
+        Board board = new Board();
+
+        board.MoveFigure("King", 4, 1);
+
+        string output = board.ToString();
+
+        Assert.Contains("K", output);
+    }
+
+    [Fact]
+    public void MoveFigure_Rook1Moves()
+    {
+        Board board = new Board();
+
+        board.MoveFigure("Rook1", 0, 3);
+
+        string result = board.ToString();
+
+        Assert.Contains("R", result);
+    }
+
+        [Fact]
+    public void MoveFigure_Rook2Moves()
+    {
+        Board board = new Board();
+
+        board.MoveFigure("Rook2", 7, 3);
+
+        string result = board.ToString();
+
+        Assert.Contains("R", result);
+    }
+
+
+}
 

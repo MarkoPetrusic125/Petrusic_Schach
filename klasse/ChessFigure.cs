@@ -29,7 +29,7 @@ public class Figures
             else return "k";
         }
 
-        if (Name == "Rook")
+        if (Name == "Rook1" || Name == "Rook2")
         {
             if (Color == "white") return "R";
             else return "r";

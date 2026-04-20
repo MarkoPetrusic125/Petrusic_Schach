@@ -10,7 +10,6 @@ class Program
         while (true)
         {
 
-            // Board anzeigen
             Console.WriteLine(game);
 
             try
