@@ -75,22 +75,46 @@ public class Board
     }
 
 
-    public void MoveFigure(int fromX, int fromY, int toX, int toY)
+ public void MoveFigure(string name, int toX, int toY)
     {
-        if (toX < 0 || toX > 7 || toY < 0 || toY > 7)
-            throw new ArgumentException("Ziel außerhalb");
 
-        if (fromX < 0 || fromX > 7 || fromY < 0 || fromY > 7)
-            throw new ArgumentException("Start außerhalb");
+        if (toX < 0 || toX > 7 || toY < 0 || toY > 7)
+        {
+            throw new ArgumentException("Ziel ist außerhalb vom Brett");
+        }
+
+        int fromX = 0;
+        int fromY = 0;
+        bool found = false;
+
+        for (int y = 0; y < 8; y++)
+        {
+            for (int x = 0; x < 8; x++)
+            {
+                if (board[x, y] != null)
+                {
+                    if (board[x, y].GetName() == name)
+                    {
+                        fromX = x;
+                        fromY = y;
+                        found = true;
+                    }
+                }
+            }
+        }
+
+        if (found == false)
+            throw new ArgumentException("Figur nicht gefunden");
 
         if (board[fromX, fromY] == null)
-            throw new ArgumentException("Keine Figur dort");
-
-        var figure = board[fromX, fromY];
-        string name = figure.GetName();
+        {
+            throw new ArgumentException("Figur existiert nicht");
+        }
 
         if (fromX == toX && fromY == toY)
-            throw new ArgumentException("Keine Bewegung");
+        {
+            throw new ArgumentException("Figur bleibt stehen");
+        }
 
         if (name == "King")
         {
@@ -98,13 +122,13 @@ public class Board
             int dy = Math.Abs(toY - fromY);
 
             if (dx > 1 || dy > 1)
-                throw new ArgumentException("King nur 1 Feld");
+                throw new ArgumentException("King darf nur 1 Feld bewegen");
         }
 
         if (name == "Rook1" || name == "Rook2")
         {
             if (fromX != toX && fromY != toY)
-                throw new ArgumentException("Rook nur gerade");
+                throw new ArgumentException("Rook darf nur gerade ziehen");
         }
 
         board[toX, toY] = board[fromX, fromY];

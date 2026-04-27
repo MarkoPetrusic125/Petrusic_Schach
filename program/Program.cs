@@ -15,11 +15,8 @@ class Program
 
             try
             {
-                Console.WriteLine("Von X:");
-                int fromX = Convert.ToInt32(Console.ReadLine());
-
-                Console.WriteLine("Von Y:");
-                int fromY = Convert.ToInt32(Console.ReadLine());
+                Console.WriteLine("Welche Figur bewegen? (z.B. King)");
+                string? name = Console.ReadLine();
 
                 Console.WriteLine("Nach X:");
                 int toX = Convert.ToInt32(Console.ReadLine());
@@ -27,7 +24,7 @@ class Program
                 Console.WriteLine("Nach Y:");
                 int toY = Convert.ToInt32(Console.ReadLine());
 
-                game.MoveFigure(fromX, fromY, toX, toY);
+                game.MoveFigure(name, toX, toY);
             }
             catch (ArgumentException ex)
             {
