@@ -36,6 +36,25 @@ public class BoardTests
     }
 
     [Fact]
+    public void Setup_Rook1IstPlaced(){
+
+        Board board = new Board();
+
+        string output = board.ToString();
+
+        Assert.Contains("R", output);
+    }
+
+        [Fact]
+    public void Setup_Rook2IstPlaced(){
+        Board board = new Board();
+
+        string output = board.ToString();
+
+        Assert.Contains("R", output);
+    }
+
+    [Fact]
     public void MoveFigure_MovesKingCorrectly()
     {
         Board board = new Board();

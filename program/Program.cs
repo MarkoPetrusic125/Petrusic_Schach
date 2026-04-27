@@ -9,13 +9,14 @@ class Program
 
         while (true)
         {
+            Console.Clear();
 
             Console.WriteLine(game);
 
             try
             {
                 Console.WriteLine("Welche Figur bewegen? (z.B. King)");
-                string name = Console.ReadLine();
+                string? name = Console.ReadLine();
 
                 Console.WriteLine("Nach X:");
                 int toX = Convert.ToInt32(Console.ReadLine());

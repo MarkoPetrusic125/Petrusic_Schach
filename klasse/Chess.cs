@@ -77,6 +77,12 @@ public class Board
 
     public void MoveFigure(string name, int toX, int toY)
     {
+
+        if (toX < 0 || toX > 7 || toY < 0 || toY > 7)
+        {
+            throw new ArgumentException("Ziel ist außerhalb vom Brett");
+        }
+
         int fromX = 0;
         int fromY = 0;
         bool found = false;
@@ -100,6 +106,15 @@ public class Board
         if (found == false)
             throw new ArgumentException("Figur nicht gefunden");
 
+        if (board[fromX, fromY] == null)
+        {
+            throw new ArgumentException("Figur existiert nicht");
+        }
+
+        if (fromX == toX && fromY == toY)
+        {
+            throw new ArgumentException("Figur bleibt stehen");
+        }
 
         if (name == "King")
         {
@@ -115,7 +130,6 @@ public class Board
             if (fromX != toX && fromY != toY)
                 throw new ArgumentException("Rook darf nur gerade ziehen");
         }
-
 
         board[toX, toY] = board[fromX, fromY];
         board[fromX, fromY] = null;
