@@ -9,10 +9,23 @@ public class Board
     private Player white = new Player("white");
     private Player black = new Player("black");
 
+    private Player currentPlayer;
+
+
+    public string GetCurrentPlayerColor()
+    {
+        return currentPlayer.GetColor();
+    }
 
 
     public Board()
     {
+
+        white = new Player("white");
+        black = new Player("black");
+
+        currentPlayer = white;
+
         SetupBoard();
     }
 
@@ -88,12 +101,6 @@ public class Board
 
     public void MoveFigure(string? name, int toX, int toY)
     {
-
-        if (toX < 0 || toX > 7 || toY < 0 || toY > 7)
-        {
-            throw new ArgumentException("Ziel ist außerhalb vom Brett");
-        }
-
         int fromX = 0;
         int fromY = 0;
         bool found = false;
@@ -102,20 +109,35 @@ public class Board
         {
             for (int x = 0; x < 8; x++)
             {
-                if (board[x, y] != null)
+                if (board[x, y] != null &&
+                    board[x, y].GetName() == name)
                 {
-                    if (board[x, y].GetName() == name)
-                    {
-                        fromX = x;
-                        fromY = y;
-                        found = true;
-                    }
+
+                    if (board[x, y].GetColor() != currentPlayer.GetColor())
+                        continue;
+
+                    fromX = x;
+                    fromY = y;
+                    found = true;
                 }
             }
         }
 
-        if (found == false)
+        if (!found)
             throw new ArgumentException("Figur nicht gefunden");
+
+
+
+        if (board[fromX, fromY].GetColor() != currentPlayer.GetColor())
+        {
+            throw new ArgumentException("Du bist nicht dran");
+        }
+
+
+        if (toX < 0 || toX > 7 || toY < 0 || toY > 7)
+        {
+            throw new ArgumentException("Ziel ist außerhalb vom Brett");
+        }
 
         if (board[fromX, fromY] == null)
         {
@@ -125,14 +147,6 @@ public class Board
         if (fromX == toX && fromY == toY)
         {
             throw new ArgumentException("Figur bleibt stehen");
-        }
-
-        if (board[toX, toY] != null)
-        {
-            if (board[toX, toY].GetColor() == board[fromX, fromY].GetColor())
-            {
-                throw new ArgumentException("Eigene Figur darf nicht geschlagen werden");
-            }
         }
 
 
@@ -168,7 +182,26 @@ public class Board
             }
         }
 
+        if (board[toX, toY] != null)
+        {
+            if (board[toX, toY].GetColor() == board[fromX, fromY].GetColor())
+            {
+                throw new ArgumentException("Eigene Figur darf nicht geschlagen werden");
+            }
+        }
+
+        
+
         board[toX, toY] = board[fromX, fromY];
         board[fromX, fromY] = null;
+
+
+
+
+        if (currentPlayer == white)
+            currentPlayer = black;
+        else
+            currentPlayer = white;
+
     }
 }

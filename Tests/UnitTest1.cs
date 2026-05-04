@@ -106,6 +106,24 @@ public class BoardTests
 
 
     [Fact]
+    public void KingCannotMove_more1_filed()
+    {
+        Board board = new Board();
+
+        try
+        {
+            board.MoveFigure("King", 6, 6);
+
+            Assert.True(false);
+        }
+        catch (ArgumentException)
+        {
+            Assert.True(true);
+        }
+    }
+
+
+    [Fact]
     public void MoveFigure_Rook_1_and_2_MoveHorizontal()
     {
         Board board = new Board();
@@ -242,6 +260,38 @@ public class BoardTests
         try
         {
             board.MoveFigure("Rook1", 6, 0);
+
+            Assert.True(false);
+        }
+        catch (ArgumentException)
+        {
+            Assert.True(true);
+        }
+    }
+
+    [Fact]
+    public void Playerswitches_afterMove()
+    {
+        Board board = new Board();
+
+        string before = board.GetCurrentPlayerColor();
+
+        board.MoveFigure("King", 4, 1);
+
+        string after = board.GetCurrentPlayerColor();
+
+        Assert.NotEqual(before, after);
+    }
+
+
+    [Fact]
+    public void CannotthrowOwnFigure()
+    {
+        Board board = new Board();
+
+        try
+        {
+            board.MoveFigure("Rook1", 4, 0);
 
             Assert.True(false);
         }

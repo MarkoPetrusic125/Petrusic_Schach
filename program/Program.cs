@@ -15,6 +15,8 @@ class Program
 
             try
             {
+                Console.WriteLine("Dran ist: " + game.GetCurrentPlayerColor());
+                
                 Console.WriteLine("Welche Figur bewegen? (z.B. King)");
                 string? name = Console.ReadLine();
 
