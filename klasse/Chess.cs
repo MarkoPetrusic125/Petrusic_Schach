@@ -7,8 +7,7 @@ public class Board
     private Figures[,] board = new Figures[8, 8];
 
     private Player white = new Player("white");
-
-
+    private Player black = new Player("black");
 
 
 
@@ -24,6 +23,10 @@ public class Board
         board[4, 0] = new Figures("King", white.GetColor());
         board[0, 0] = new Figures("Rook1", white.GetColor());
         board[7, 0] = new Figures("Rook2", white.GetColor());
+
+        board[4, 7] = new Figures("King", black.GetColor());
+        board[0, 7] = new Figures("Rook1", black.GetColor());
+        board[7, 7] = new Figures("Rook2", black.GetColor());
 
     }
 

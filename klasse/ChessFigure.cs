@@ -32,13 +32,13 @@ public class Figures
         if (Name == "Rook1")
         {
             if (Color == "white") return "R¹";
-            else return "r";
+            else return "r¹";
         }
 
         if (Name == "Rook2")
         {
             if (Color == "white") return "R²";
-            else return "r";
+            else return "r²";
         }
         return "";
     }
