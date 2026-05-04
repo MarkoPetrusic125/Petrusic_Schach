@@ -11,6 +11,13 @@ public class Board
 
     private Player currentPlayer;
 
+    private string? lastCaptured;
+
+    public string? GetLastCaptured()
+    {
+        return lastCaptured;
+    }
+
 
     public string GetCurrentPlayerColor()
     {
@@ -55,52 +62,50 @@ public class Board
 
         for (int y = 0; y < 8; y++)
         {
+
+            result += y + "  ";
+
             for (int x = 0; x < 8; x++)
             {
                 if (board[x, y] == null)
                 {
                     if ((x + y) % 2 == 0)
-                    {
                         result += "   ";
-                    }
                     else
-                    {
                         result += " # ";
-                    }
                 }
                 else
-
                 {
                     string symbol = board[x, y].ToString();
 
                     if (symbol.Length == 1)
-
                         symbol = " " + symbol + " ";
-
                     else if (symbol.Length == 2)
-
                         symbol = " " + symbol;
 
                     result += symbol;
                 }
 
                 if (x < 7)
-                {
                     result += "|";
-                }
             }
 
+            result += "\n";
+
             if (y < 7)
-            {
-                result += "\n---+---+---+---+---+---+---+---\n";
-            }
+                result += "   ---+---+---+---+---+---+---+---\n";
         }
+
+
+        result += "    0   1   2   3   4   5   6   7";
+
         return result;
     }
 
 
     public void MoveFigure(string? name, int toX, int toY)
     {
+
         int fromX = 0;
         int fromY = 0;
         bool found = false;
@@ -149,6 +154,12 @@ public class Board
             throw new ArgumentException("Figur bleibt stehen");
         }
 
+        lastCaptured = null;
+
+        if (board[toX, toY] != null)
+        {
+            lastCaptured = board[toX, toY].GetName();
+        }
 
         if (name == "King")
         {
@@ -190,7 +201,7 @@ public class Board
             }
         }
 
-        
+
 
         board[toX, toY] = board[fromX, fromY];
         board[fromX, fromY] = null;

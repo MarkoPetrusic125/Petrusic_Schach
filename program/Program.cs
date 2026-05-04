@@ -16,7 +16,11 @@ class Program
             try
             {
                 Console.WriteLine("Dran ist: " + game.GetCurrentPlayerColor());
-                
+
+                if (game.GetLastCaptured() != null)
+                {
+                    Console.WriteLine("Geschlagen: " + game.GetLastCaptured());
+                }
                 Console.WriteLine("Welche Figur bewegen? (z.B. King)");
                 string? name = Console.ReadLine();
 
@@ -27,6 +31,15 @@ class Program
                 int toY = Convert.ToInt32(Console.ReadLine());
 
                 game.MoveFigure(name, toX, toY);
+
+                if (game.GetLastCaptured() != null)
+                {
+                    Console.WriteLine("Geschlagen: " + game.GetLastCaptured());
+                    Console.WriteLine("Enter drücken...");
+                    Console.ReadLine();
+                }
+
+                
             }
             catch (ArgumentException ex)
             {
