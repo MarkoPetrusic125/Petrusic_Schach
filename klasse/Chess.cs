@@ -27,9 +27,6 @@ public class Board
 
     }
 
-
-
-
     public void SetFigure(int x, int y, Figures figure)
     {
         board[x, y] = figure;
@@ -56,8 +53,19 @@ public class Board
                     }
                 }
                 else
+
                 {
-                    result += " " + board[x, y].ToString() + " ";
+                    string symbol = board[x, y].ToString();
+
+                    if (symbol.Length == 1)
+
+                        symbol = " " + symbol + " ";
+
+                    else if (symbol.Length == 2)
+
+                        symbol = " " + symbol;
+
+                    result += symbol;
                 }
 
                 if (x < 7)
@@ -75,7 +83,7 @@ public class Board
     }
 
 
- public void MoveFigure(string name, int toX, int toY)
+    public void MoveFigure(string? name, int toX, int toY)
     {
 
         if (toX < 0 || toX > 7 || toY < 0 || toY > 7)
@@ -116,6 +124,15 @@ public class Board
             throw new ArgumentException("Figur bleibt stehen");
         }
 
+        if (board[toX, toY] != null)
+        {
+            if (board[toX, toY].GetColor() == board[fromX, fromY].GetColor())
+            {
+                throw new ArgumentException("Eigene Figur darf nicht geschlagen werden");
+            }
+        }
+
+
         if (name == "King")
         {
             int dx = Math.Abs(toX - fromX);
@@ -129,6 +146,23 @@ public class Board
         {
             if (fromX != toX && fromY != toY)
                 throw new ArgumentException("Rook darf nur gerade ziehen");
+
+            int dx = Math.Sign(toX - fromX);
+            int dy = Math.Sign(toY - fromY);
+
+            int x = fromX + dx;
+            int y = fromY + dy;
+
+            while (x != toX || y != toY)
+            {
+                if (board[x, y] != null)
+                {
+                    throw new ArgumentException("Rook darf nicht über Figuren springen");
+                }
+
+                x += dx;
+                y += dy;
+            }
         }
 
         board[toX, toY] = board[fromX, fromY];

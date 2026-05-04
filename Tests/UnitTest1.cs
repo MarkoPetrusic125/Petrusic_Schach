@@ -106,7 +106,7 @@ public class BoardTests
 
 
     [Fact]
-    public void MoveFigure_Rook_1_and_2_MoveHorizontaly()
+    public void MoveFigure_Rook_1_and_2_MoveHorizontal()
     {
         Board board = new Board();
 
@@ -127,6 +127,128 @@ public class BoardTests
         string result = board.ToString();
 
         Assert.Contains("R", result);
+    }
+
+    [Fact]
+    public void MoveFigure_Kingdoes_not_Dissapear()
+    {
+        Board board = new Board();
+
+        string before = board.ToString();
+
+        try
+        {
+            board.MoveFigure("King", 4, 0);
+        }
+        catch { }
+
+        string after = board.ToString();
+
+        Assert.Equal(before, after);
+    }
+
+    [Fact]
+    public void MoveFigure_King_more_1_filed()
+    {
+        Board board = new Board();
+
+        try
+        {
+            board.MoveFigure("King", 6, 6);
+
+            Assert.True(false);
+        }
+        catch (ArgumentException)
+        {
+            Assert.True(true);
+        }
+    }
+
+    [Fact]
+    public void MoveFigure_Rook_just_horizontal_not_diagonal()
+    {
+        Board board = new Board();
+
+        try
+        {
+            board.MoveFigure("Rook1", 1, 1);
+
+            Assert.True(false);
+        }
+        catch (ArgumentException)
+        {
+            Assert.True(true);
+        }
+    }
+
+    [Fact]
+    public void MoveFigure_OutOfboard()
+    {
+        Board board = new Board();
+
+        try
+        {
+            board.MoveFigure("King", 8, 0);
+
+            Assert.True(false);
+        }
+        catch (ArgumentException)
+        {
+            Assert.True(true);
+        }
+    }
+
+    [Fact]
+    public void Not_allowed_to_take_Own_figure()
+    {
+        Board board = new Board();
+
+        try
+        {
+
+            board.MoveFigure("Rook1", 4, 0);
+
+            Assert.True(false);
+        }
+        catch (ArgumentException)
+        {
+            Assert.True(true);
+        }
+    }
+
+
+    [Fact]
+    public void MoveFigure_SamePosition_not_allowed()
+    {
+        Board board = new Board();
+
+        try
+        {
+            board.MoveFigure("King", 4, 0);
+
+            Assert.True(false);
+        }
+        catch (ArgumentException)
+        {
+            Assert.True(true);
+        }
+    }
+
+    [Fact]
+    public void Rook_CannotJumpoverFigure()
+    {
+        Board board = new Board();
+
+        try
+        {
+            board.MoveFigure("Rook1", 6, 0);
+
+            Assert.True(false);
+        }
+        catch (ArgumentException)
+        {
+            Assert.True(true);
+        }
     }
 
 

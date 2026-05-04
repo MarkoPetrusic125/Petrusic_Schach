@@ -29,12 +29,17 @@ public class Figures
             else return "k";
         }
 
-        if (Name == "Rook1" || Name == "Rook2")
+        if (Name == "Rook1")
         {
-            if (Color == "white") return "R";
+            if (Color == "white") return "R¹";
             else return "r";
         }
 
+        if (Name == "Rook2")
+        {
+            if (Color == "white") return "R²";
+            else return "r";
+        }
         return "";
     }
 }
