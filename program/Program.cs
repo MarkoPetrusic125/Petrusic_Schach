@@ -39,7 +39,22 @@ class Program
                     Console.ReadLine();
                 }
 
-                
+                if (game.IsKingInCheck("white"))
+                {
+                    Console.WriteLine("WEISS IST IM SCHACH!");
+                    Console.WriteLine("Enter drücken...");
+                    Console.ReadLine();
+                }
+
+                if (game.IsKingInCheck("black"))
+                {
+                    Console.WriteLine("SCHWARZ IST IM SCHACH!");
+                    Console.WriteLine("Enter drücken...");
+                    Console.ReadLine();
+
+                }
+
+
             }
             catch (ArgumentException ex)
             {

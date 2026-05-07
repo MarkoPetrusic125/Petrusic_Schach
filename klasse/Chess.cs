@@ -192,20 +192,35 @@ public class Board
                 y += dy;
             }
         }
-
         if (board[toX, toY] != null)
         {
             if (board[toX, toY].GetColor() == board[fromX, fromY].GetColor())
             {
                 throw new ArgumentException("Eigene Figur darf nicht geschlagen werden");
             }
+
+            if (board[toX, toY].GetName() == "King")
+            {
+                throw new ArgumentException("King kann nicht geschlagen werden");
+            }
         }
 
 
 
+        Figures? captured = board[toX, toY];
+
         board[toX, toY] = board[fromX, fromY];
         board[fromX, fromY] = null;
 
+
+        if (IsKingInCheck(currentPlayer.GetColor()))
+        {
+
+            board[fromX, fromY] = board[toX, toY];
+            board[toX, toY] = captured;
+
+            throw new ArgumentException("Zug nicht erlaubt, King bleibt im Schach");
+        }
 
 
 
@@ -214,5 +229,89 @@ public class Board
         else
             currentPlayer = white;
 
+    }
+
+
+    public bool IsKingInCheck(string color)
+    {
+        int kingX = -1;
+        int kingY = -1;
+
+
+        for (int y = 0; y < 8; y++)
+        {
+            for (int x = 0; x < 8; x++)
+            {
+                if (board[x, y] != null)
+                {
+                    if (board[x, y].GetName() == "King" &&
+                        board[x, y].GetColor() == color)
+                    {
+                        kingX = x;
+                        kingY = y;
+                    }
+                }
+            }
+        }
+
+
+
+        for (int y = 0; y < 8; y++)
+        {
+            for (int x = 0; x < 8; x++)
+            {
+                if (board[x, y] != null)
+                {
+
+                    if (board[x, y].GetColor() == color)
+                        continue;
+
+
+                    string name = board[x, y].GetName();
+
+
+                    if (name == "Rook1" || name == "Rook2")
+                    {
+
+                        if (x == kingX || y == kingY)
+                        {
+                            int dx = Math.Sign(kingX - x);
+                            int dy = Math.Sign(kingY - y);
+
+                            int checkX = x + dx;
+                            int checkY = y + dy;
+
+                            bool blocked = false;
+
+                            while (checkX != kingX || checkY != kingY)
+                            {
+                                if (board[checkX, checkY] != null)
+                                {
+                                    blocked = true;
+                                }
+
+                                checkX += dx;
+                                checkY += dy;
+                            }
+
+                            if (!blocked)
+                                return true;
+                        }
+                    }
+
+
+                    if (name == "King")
+                    {
+                        int dx = Math.Abs(kingX - x);
+                        int dy = Math.Abs(kingY - y);
+
+                        if (dx <= 1 && dy <= 1)
+                            return true;
+                    }
+                }
+            }
+        }
+
+        return false;
     }
 }
