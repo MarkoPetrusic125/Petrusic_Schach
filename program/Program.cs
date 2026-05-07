@@ -17,9 +17,12 @@ class Program
             {
                 Console.WriteLine("Dran ist: " + game.GetCurrentPlayerColor());
 
+                Console.WriteLine("Geschlagen Weiss: " + game.GetCapturedWhite());
+                Console.WriteLine("Geschlagen Schwarz: " + game.GetCapturedBlack());
+
                 if (game.GetLastCaptured() != null)
                 {
-                    Console.WriteLine("Geschlagen: " + game.GetLastCaptured());
+                    Console.WriteLine("last Geschlagen: " + game.GetLastCaptured());
                 }
                 Console.WriteLine("Welche Figur bewegen? (z.B. King)");
                 string? name = Console.ReadLine();

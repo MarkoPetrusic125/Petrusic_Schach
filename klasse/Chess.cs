@@ -13,9 +13,22 @@ public class Board
 
     private string? lastCaptured;
 
+    private string capturedWhite = "";
+    private string capturedBlack = "";
+
     public string? GetLastCaptured()
     {
         return lastCaptured;
+    }
+
+    public string GetCapturedWhite()
+    {
+        return capturedWhite;
+    }
+
+    public string GetCapturedBlack()
+    {
+        return capturedBlack;
     }
 
 
@@ -158,8 +171,18 @@ public class Board
 
         if (board[toX, toY] != null)
         {
-            lastCaptured = board[toX, toY].GetName();
+            lastCaptured = board[toX, toY].ToString();
+
+            if (board[toX, toY].GetColor() == "white")
+            {
+                capturedWhite += board[toX, toY].ToString() + " ";
+            }
+            else
+            {
+                capturedBlack += board[toX, toY].ToString() + " ";
+            }
         }
+
 
         if (name == "King")
         {
