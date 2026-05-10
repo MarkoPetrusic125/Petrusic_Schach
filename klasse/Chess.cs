@@ -57,11 +57,17 @@ public class Board
         board[0, 0] = new Figures("Rook1", white.GetColor());
         board[7, 0] = new Figures("Rook2", white.GetColor());
         board[3, 0] = new Figures("Queen", white.GetColor());
+        board[2, 0] = new Figures("Bishop1", white.GetColor());
+        board[5, 0] = new Figures("Bishop2", white.GetColor());
+
+
 
         board[4, 7] = new Figures("King", black.GetColor());
         board[0, 7] = new Figures("Rook1", black.GetColor());
         board[7, 7] = new Figures("Rook2", black.GetColor());
         board[3, 7] = new Figures("Queen", black.GetColor());
+        board[2, 7] = new Figures("Bishop1", black.GetColor());
+        board[5, 7] = new Figures("Bishop2", black.GetColor());
 
 
     }
@@ -250,6 +256,31 @@ public class Board
             }
         }
 
+        if (name == "Bishop1" || name == "Bishop2")
+        {
+            if (Math.Abs(toX - fromX) != Math.Abs(toY - fromY))
+            {
+                throw new ArgumentException("Bishop darf nur diagonal ziehen");
+            }
+
+            int dx = Math.Sign(toX - fromX);
+            int dy = Math.Sign(toY - fromY);
+
+            int x = fromX + dx;
+            int y = fromY + dy;
+
+            while (x != toX || y != toY)
+            {
+                if (board[x, y] != null)
+                {
+                    throw new ArgumentException("Bishop darf nicht über Figuren springen");
+                }
+
+                x += dx;
+                y += dy;
+            }
+        }
+
         if (board[toX, toY] != null)
         {
             if (board[toX, toY].GetColor() == board[fromX, fromY].GetColor())
@@ -368,6 +399,33 @@ public class Board
                     }
 
                     if (name == "Queen")
+                    {
+                        if (Math.Abs(kingX - x) == Math.Abs(kingY - y))
+                        {
+                            int dx = Math.Sign(kingX - x);
+                            int dy = Math.Sign(kingY - y);
+
+                            int checkX = x + dx;
+                            int checkY = y + dy;
+
+                            bool blocked = false;
+
+                            while (checkX != kingX || checkY != kingY)
+                            {
+                                if (board[checkX, checkY] != null)
+                                {
+                                    blocked = true;
+                                }
+
+                                checkX += dx;
+                                checkY += dy;
+                            }
+
+                            if (!blocked)
+                                return true;
+                        }
+                    }
+                    if (name == "Bishop1" || name == "Bishop2")
                     {
                         if (Math.Abs(kingX - x) == Math.Abs(kingY - y))
                         {

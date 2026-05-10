@@ -74,6 +74,16 @@ public class SetupBoardTests
         Assert.Contains("Q", output);
     }
 
+    [Fact]
+    public void Bishop_IsPlaced()
+    {
+        Board board = new Board();
+
+        string output = board.ToString();
+
+        Assert.Contains("B", output);
+    }
+
 }
 
 
@@ -318,6 +328,56 @@ public class QueenMovementTests
     }
 }
 
+public class BishopMovmentTest
+{
+    [Fact]
+    public void Bishop_Can_Move_Diagonal()
+    {
+        Board board = new Board();
+
+        board.MoveFigure("Bishop1", 5, 3);
+
+        string output = board.ToString();
+
+        Assert.Contains("B", output);
+    }
+
+    [Fact]
+    public void Bishop_Cannot_Move_Straight()
+    {
+        Board board = new Board();
+
+        try
+        {
+            board.MoveFigure("Bishop1", 2, 4);
+
+            Assert.True(false);
+        }
+        catch (ArgumentException)
+        {
+            Assert.True(true);
+        }
+    }
+
+    [Fact]
+    public void Bishop_Cannot_Jump_Over_Figure()
+    {
+        Board board = new Board();
+
+        try
+        {
+            board.MoveFigure("Bishop1", 4, 2);
+
+            Assert.True(false);
+        }
+        catch (ArgumentException)
+        {
+            Assert.True(true);
+        }
+    }
+}
+
+
 
 public class InvalidMoveTests
 {
@@ -488,6 +548,20 @@ public class CheckTests
         Board board = new Board();
 
         board.MoveFigure("Queen", 3, 6);
+
+        Assert.True(board.IsKingInCheck("black"));
+    }
+
+    [Fact]
+    public void Bishop_Can_Give_Check()
+    {
+        Board board = new Board();
+
+        board.MoveFigure("Bishop1", 5, 3);
+
+        board.MoveFigure("King", 4, 6);
+
+        board.MoveFigure("Bishop1", 6, 4);
 
         Assert.True(board.IsKingInCheck("black"));
     }

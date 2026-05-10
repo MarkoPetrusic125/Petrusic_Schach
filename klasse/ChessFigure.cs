@@ -47,6 +47,18 @@ public class Figures
             else return "q";
         }
 
+        if (Name == "Bishop1")
+        {
+            if (Color == "white") return "B¹";
+            else return "b¹";
+        }
+
+        if (Name == "Bishop2")
+        {
+            if (Color == "white") return "B²";
+            else return "b²";
+        }
+
         return "";
     }
 }
