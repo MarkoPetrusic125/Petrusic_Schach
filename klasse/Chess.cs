@@ -56,10 +56,13 @@ public class Board
         board[4, 0] = new Figures("King", white.GetColor());
         board[0, 0] = new Figures("Rook1", white.GetColor());
         board[7, 0] = new Figures("Rook2", white.GetColor());
+        board[3, 0] = new Figures("Queen", white.GetColor());
 
         board[4, 7] = new Figures("King", black.GetColor());
         board[0, 7] = new Figures("Rook1", black.GetColor());
         board[7, 7] = new Figures("Rook2", black.GetColor());
+        board[3, 7] = new Figures("Queen", black.GetColor());
+
 
     }
 
@@ -215,6 +218,38 @@ public class Board
                 y += dy;
             }
         }
+
+        if (name == "Queen")
+        {
+            bool straight = fromX == toX || fromY == toY;
+
+            bool diagonal =
+                Math.Abs(toX - fromX) ==
+                Math.Abs(toY - fromY);
+
+            if (!straight && !diagonal)
+            {
+                throw new ArgumentException("Queen darf nur gerade oder diagonal ziehen");
+            }
+
+            int dx = Math.Sign(toX - fromX);
+            int dy = Math.Sign(toY - fromY);
+
+            int x = fromX + dx;
+            int y = fromY + dy;
+
+            while (x != toX || y != toY)
+            {
+                if (board[x, y] != null)
+                {
+                    throw new ArgumentException("Queen darf nicht über Figuren springen");
+                }
+
+                x += dx;
+                y += dy;
+            }
+        }
+
         if (board[toX, toY] != null)
         {
             if (board[toX, toY].GetColor() == board[fromX, fromY].GetColor())
@@ -293,7 +328,7 @@ public class Board
                     string name = board[x, y].GetName();
 
 
-                    if (name == "Rook1" || name == "Rook2")
+                    if (name == "Rook1" || name == "Rook2" || name == "Queen")
                     {
 
                         if (x == kingX || y == kingY)
@@ -330,6 +365,34 @@ public class Board
 
                         if (dx <= 1 && dy <= 1)
                             return true;
+                    }
+
+                    if (name == "Queen")
+                    {
+                        if (Math.Abs(kingX - x) == Math.Abs(kingY - y))
+                        {
+                            int dx = Math.Sign(kingX - x);
+                            int dy = Math.Sign(kingY - y);
+
+                            int checkX = x + dx;
+                            int checkY = y + dy;
+
+                            bool blocked = false;
+
+                            while (checkX != kingX || checkY != kingY)
+                            {
+                                if (board[checkX, checkY] != null)
+                                {
+                                    blocked = true;
+                                }
+
+                                checkX += dx;
+                                checkY += dy;
+                            }
+
+                            if (!blocked)
+                                return true;
+                        }
                     }
                 }
             }

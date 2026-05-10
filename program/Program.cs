@@ -24,7 +24,7 @@ class Program
                 {
                     Console.WriteLine("last Geschlagen: " + game.GetLastCaptured());
                 }
-                Console.WriteLine("Welche Figur bewegen? (z.B. King)");
+                Console.WriteLine("Welche Figur bewegen? (z.B. King, Rook,)");
                 string? name = Console.ReadLine();
 
                 Console.WriteLine("Nach X:");

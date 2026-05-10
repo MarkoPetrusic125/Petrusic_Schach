@@ -63,6 +63,17 @@ public class SetupBoardTests
 
         Assert.Contains("R", output);
     }
+
+    [Fact]
+    public void Queen_IsPlaced()
+    {
+        Board board = new Board();
+
+        string output = board.ToString();
+
+        Assert.Contains("Q", output);
+    }
+
 }
 
 
@@ -179,7 +190,7 @@ public class RookMovementTests
     {
         Board board = new Board();
 
-        board.MoveFigure("Rook1", 3, 0);
+        board.MoveFigure("Rook1", 0, 2);
 
         string result = board.ToString();
 
@@ -233,6 +244,79 @@ public class RookMovementTests
     }
 }
 
+
+public class QueenMovementTests
+{
+    [Fact]
+    public void Queen_Can_Move_Vertical()
+    {
+        Board board = new Board();
+
+        board.MoveFigure("Queen", 3, 4);
+
+        string output = board.ToString();
+
+        Assert.Contains("Q", output);
+    }
+
+    [Fact]
+    public void Queen_Can_Move_Horizontal()
+    {
+        Board board = new Board();
+
+        board.MoveFigure("Queen", 3, 2);
+
+        string output = board.ToString();
+
+        Assert.Contains("Q", output);
+    }
+
+    [Fact]
+    public void Queen_Can_Move_Diagonal()
+    {
+        Board board = new Board();
+
+        board.MoveFigure("Queen", 6, 3);
+
+        string output = board.ToString();
+
+        Assert.Contains("Q", output);
+    }
+
+    [Fact]
+    public void Queen_Cannot_Move_Wrong()
+    {
+        Board board = new Board();
+
+        try
+        {
+            board.MoveFigure("Queen", 2, 2);
+
+            Assert.True(false);
+        }
+        catch (ArgumentException)
+        {
+            Assert.True(true);
+        }
+    }
+
+    [Fact]
+    public void Queen_Cannot_Jump_Over_Figure()
+    {
+        Board board = new Board();
+
+        try
+        {
+            board.MoveFigure("Queen", 5, 0);
+
+            Assert.True(false);
+        }
+        catch (ArgumentException)
+        {
+            Assert.True(true);
+        }
+    }
+}
 
 
 public class InvalidMoveTests
@@ -396,5 +480,15 @@ public class CheckTests
         board.MoveFigure("King", 4, 5);
 
         Assert.False(board.IsKingInCheck("black"));
+    }
+
+    [Fact]
+    public void Queen_Can_Give_Check()
+    {
+        Board board = new Board();
+
+        board.MoveFigure("Queen", 3, 6);
+
+        Assert.True(board.IsKingInCheck("black"));
     }
 }

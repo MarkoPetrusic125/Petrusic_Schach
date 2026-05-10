@@ -40,6 +40,13 @@ public class Figures
             if (Color == "white") return "R²";
             else return "r²";
         }
+
+        if (Name == "Queen")
+        {
+            if (Color == "white") return "Q";
+            else return "q";
+        }
+
         return "";
     }
 }
